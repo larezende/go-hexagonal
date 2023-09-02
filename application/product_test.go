@@ -1,7 +1,7 @@
 package application_test
 
 import (
-	uuid "github.com/satori/go.uuid"
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
 	"go-hexagonal/application"
 	"testing"
@@ -47,7 +47,7 @@ func TestProduct_Disable(t *testing.T) {
 
 func TestProduct_IsValid(t *testing.T) {
 	product := application.Product{}
-	product.ID = uuid.NewV4().String()
+	product.ID = uuid.New().String()
 	product.Name = "Hello"
 	product.Status = application.DISABLED
 	product.Price = 10
@@ -81,7 +81,7 @@ func TestProduct_IsValid(t *testing.T) {
 
 	require.Equal(t, "ID: 123 does not validate as uuidv4", err.Error())
 
-	product.ID = uuid.NewV4().String()
+	product.ID = uuid.New().String()
 	_, err = product.IsValid()
 	require.Nil(t, err)
 }
