@@ -23,7 +23,7 @@ func TestProductService_Get(t *testing.T) {
 
 	result, err := service.Get("abc")
 	require.Nil(t, err)
-	require.Equal(t, result, productMock)
+	require.Equal(t, productMock, result)
 }
 
 func TestProductService_Save(t *testing.T) {
