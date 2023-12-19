@@ -27,6 +27,27 @@ func (p *ProductDb) Get(id string) (application.ProductInterface, error) {
 	return &product, nil
 }
 
+func (p *ProductDb) List() ([]application.ProductInterface, error) {
+	var products []application.ProductInterface
+	stmt, err := p.db.Prepare("select id, name, price, status from products")
+	if err != nil {
+		return nil, err
+	}
+	rows, err := stmt.Query()
+	if err != nil {
+		return nil, err
+	}
+	for rows.Next() {
+		var product application.Product
+		err := rows.Scan(&product.ID, &product.Name, &product.Price, &product.Status)
+		if err != nil {
+			return nil, err
+		}
+		products = append(products, &product)
+	}
+	return products, nil
+}
+
 func (p *ProductDb) Save(product application.ProductInterface) (application.ProductInterface, error) {
 	var rows int
 	p.db.QueryRow("Select count(*) from products where id=?", product.GetID()).Scan(&rows)

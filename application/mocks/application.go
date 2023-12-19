@@ -216,6 +216,21 @@ func (mr *MockProductServiceInterfaceMockRecorder) Get(id interface{}) *gomock.C
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockProductServiceInterface)(nil).Get), id)
 }
 
+// List mocks base method.
+func (m *MockProductServiceInterface) List() ([]application.ProductInterface, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "List")
+	ret0, _ := ret[0].([]application.ProductInterface)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// List indicates an expected call of List.
+func (mr *MockProductServiceInterfaceMockRecorder) List() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "List", reflect.TypeOf((*MockProductServiceInterface)(nil).List))
+}
+
 // MockProductReader is a mock of ProductReader interface.
 type MockProductReader struct {
 	ctrl     *gomock.Controller
@@ -252,6 +267,21 @@ func (m *MockProductReader) Get(id string) (application.ProductInterface, error)
 func (mr *MockProductReaderMockRecorder) Get(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockProductReader)(nil).Get), id)
+}
+
+// List mocks base method.
+func (m *MockProductReader) List() ([]application.ProductInterface, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "List")
+	ret0, _ := ret[0].([]application.ProductInterface)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// List indicates an expected call of List.
+func (mr *MockProductReaderMockRecorder) List() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "List", reflect.TypeOf((*MockProductReader)(nil).List))
 }
 
 // MockProductWriter is a mock of ProductWriter interface.
@@ -328,6 +358,21 @@ func (m *MockProductPersistenceInterface) Get(id string) (application.ProductInt
 func (mr *MockProductPersistenceInterfaceMockRecorder) Get(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockProductPersistenceInterface)(nil).Get), id)
+}
+
+// List mocks base method.
+func (m *MockProductPersistenceInterface) List() ([]application.ProductInterface, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "List")
+	ret0, _ := ret[0].([]application.ProductInterface)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// List indicates an expected call of List.
+func (mr *MockProductPersistenceInterfaceMockRecorder) List() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "List", reflect.TypeOf((*MockProductPersistenceInterface)(nil).List))
 }
 
 // Save mocks base method.

@@ -10,6 +10,15 @@ func Run(service application.ProductServiceInterface, action string, productId s
 	var result = ""
 
 	switch action {
+	case "list":
+		products, err := service.List()
+		if err != nil {
+			return result, err
+		}
+		for _, product := range products {
+			result += fmt.Sprintf("Product ID: %s\nName: %s\nPrice: %f\nStatus: %s\n\n",
+				product.GetID(), product.GetName(), product.GetPrice(), product.GetStatus())
+		}
 	case "create":
 		product, err := service.Create(productName, price)
 		if err != nil {

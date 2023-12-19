@@ -14,7 +14,8 @@ var Db *sql.DB
 func setUp() {
 	Db, _ = sql.Open("sqlite3", ":memory:")
 	createTable(Db)
-	createProduct(Db)
+	createProduct(Db, "abc")
+	createProduct(Db, "def")
 }
 
 func createTable(db *sql.DB) {
@@ -29,13 +30,13 @@ func createTable(db *sql.DB) {
 	}
 }
 
-func createProduct(db *sql.DB) {
-	insert := `insert into products values("abc", "Product Test", 0, "disabled");`
+func createProduct(db *sql.DB, id string) {
+	insert := `insert into products values(?, "Product Test", 0, "disabled");`
 	stmt, err := db.Prepare(insert)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	_, err = stmt.Exec()
+	_, err = stmt.Exec(id)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -75,4 +76,13 @@ func TestProductDb_Save(t *testing.T) {
 	require.Equal(t, product.GetPrice(), productResult.GetPrice())
 	require.Equal(t, product.GetStatus(), productResult.GetStatus())
 
+}
+
+func TestProductDb_List(t *testing.T) {
+	setUp()
+	defer Db.Close()
+	productDb := db.NewProductDb(Db)
+	products, err := productDb.List()
+	require.Nil(t, err)
+	require.Len(t, products, 2)
 }

@@ -21,6 +21,7 @@ type ProductInterface interface {
 }
 
 type ProductServiceInterface interface {
+	List() ([]ProductInterface, error)
 	Get(id string) (ProductInterface, error)
 	Create(name string, price float64) (ProductInterface, error)
 	Enable(product ProductInterface) (ProductInterface, error)
@@ -28,6 +29,7 @@ type ProductServiceInterface interface {
 }
 
 type ProductReader interface {
+	List() ([]ProductInterface, error)
 	Get(id string) (ProductInterface, error)
 }
 

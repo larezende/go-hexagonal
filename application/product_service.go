@@ -12,6 +12,14 @@ func (s *ProductService) Get(id string) (ProductInterface, error) {
 	return product, nil
 }
 
+func (s *ProductService) List() ([]ProductInterface, error) {
+	products, err := s.Persistence.List()
+	if err != nil {
+		return nil, err
+	}
+	return products, nil
+}
+
 func (s *ProductService) Create(name string, price float64) (ProductInterface, error) {
 	product := NewProduct()
 	product.Name = name

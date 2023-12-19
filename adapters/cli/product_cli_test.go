@@ -5,6 +5,7 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 	"go-hexagonal/adapters/cli"
+	"go-hexagonal/application"
 	mock_application "go-hexagonal/application/mocks"
 	"testing"
 )
@@ -25,6 +26,7 @@ func TestRun(t *testing.T) {
 	productMock.EXPECT().GetID().Return(id).AnyTimes()
 
 	service := mock_application.NewMockProductServiceInterface(ctrl)
+	service.EXPECT().List().Return([]application.ProductInterface{productMock, productMock}, nil).AnyTimes()
 	service.EXPECT().Create(name, price).Return(productMock, nil).AnyTimes()
 	service.EXPECT().Get(id).Return(productMock, nil).AnyTimes()
 	service.EXPECT().Enable(gomock.Any()).Return(productMock, nil).AnyTimes()
@@ -50,4 +52,8 @@ func TestRun(t *testing.T) {
 	require.Nil(t, err)
 	require.Equal(t, expectedResult, result)
 
+	expectedResult = fmt.Sprintf("Product ID: %s\nName: %s\nPrice: %f\nStatus: %s\n\nProduct ID: %s\nName: %s\nPrice: %f\nStatus: %s\n\n", id, name, price, status, id, name, price, status)
+	result, err = cli.Run(service, "list", id, "", 0)
+	require.Nil(t, err)
+	require.Equal(t, expectedResult, result)
 }

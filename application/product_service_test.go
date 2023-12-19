@@ -68,3 +68,21 @@ func TestProductService_EnableDisable(t *testing.T) {
 	require.Equal(t, result, productMock)
 
 }
+
+func TestProductService_List(t *testing.T) {
+
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	productMock := applicationMocks.NewMockProductInterface(ctrl)
+	persistenceMock := applicationMocks.NewMockProductPersistenceInterface(ctrl)
+	persistenceMock.EXPECT().List().Return([]application.ProductInterface{productMock, productMock}, nil).AnyTimes()
+
+	service := application.ProductService{
+		Persistence: persistenceMock,
+	}
+
+	result, err := service.List()
+	require.Nil(t, err)
+	require.Equal(t, result, []application.ProductInterface{productMock, productMock})
+}
