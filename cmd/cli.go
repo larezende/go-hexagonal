@@ -16,13 +16,7 @@ var productPrice float64
 // cliCmd represents the cli command
 var cliCmd = &cobra.Command{
 	Use:   "cli",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "simple cli to manage products",
 	Run: func(cmd *cobra.Command, args []string) {
 		result, err := cli.Run(&productService, action, productId, productName, productPrice)
 		if err != nil {
@@ -35,7 +29,7 @@ to quickly create a Cobra application.`,
 func init() {
 	rootCmd.AddCommand(cliCmd)
 
-	cliCmd.Flags().StringVarP(&action, "action", "a", "get", "Action to be executed (get, create, enable, disable)")
+	cliCmd.Flags().StringVarP(&action, "action", "a", "list", "Action to be executed (list, get, create, enable, disable)")
 	cliCmd.Flags().StringVarP(&productId, "id", "i", "", "Product ID")
 	cliCmd.Flags().StringVarP(&productName, "product", "n", "", "Product Name")
 	cliCmd.Flags().Float64VarP(&productPrice, "productPrice", "p", 0, "Product price")
